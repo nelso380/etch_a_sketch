@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Etch-A-Sketch</title>
+  <style>
+  #container {
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: auto auto;
+    background-color: #2196F3;
+    padding: 0px;
+    width: 95%;
+    height: auto;
+  }
+  .square {
+    display: inline-block;
+    background-color: white;
+    /*border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;*/
+    min-height: 20px;
+    min-width: 1px;
+    
+  }
+  input {
+    text-align: center;
+    font-weight: bold;
+    display: inline block;
+    margin: 30px auto;
+    background: white;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+  }
+  button {
+    font-weight: bold;
+    display: inline block;
+    margin: 30px auto;
+    background: grey;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    font-size: 12px;
+    color: white;
+  }
+  </style>
+</head>
+
+<body>
+  <h2>Specify how many squares will be on each side of the grid:</h2>
+  <input id="gridsize" type="text">
+  <button type="button" id="gengrid">Generate Grid</button>
+  <p>
+      <div id="container"></div>
+  </p>
+
+  <script>
+
+    const container = document.querySelector('#container');
+    const buttonClick = document.querySelectorAll('button');
+
+    //generate grid on button click
+    buttonClick.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        let autoText = "";
+        let rowlength = document.getElementById("gridsize").value;
+        for (i = 0; i < rowlength * rowlength; i++) {
+          let square = document.createElement('div');
+          square.classList.add('square');
+          container.appendChild(square);
+        }
+        for (i = 0; i < rowlength; i++) {
+          if (i == rowlength - 1) autoText += "auto";
+          else autoText += "auto "; 
+        }
+        container.style.gridTemplateColumns = autoText;
+        square.style.minHeight = 100 / rowlength + "%";
+      });
+    });
+    const hoverOver = document.querySelectorAll('div');
+    // change square color to random color when hovered over
+    hoverOver.forEach((box) => {
+      box.addEventListener('mouseover', function(e) {
+        let randcolor1 = Math.random() * 255;
+        let randcolor2 = Math.random() * 255;
+        let randcolor3 = Math.random() * 255;
+        let randcolor4 = Math.random();
+        e.target.style.backgroundColor = "rgba(" + randcolor1 + ", " + randcolor2 + ", " + randcolor3 + ", " + randcolor4 + ")";
+      });
+    });
+
+
+  </script>
+</body>
+</html>
